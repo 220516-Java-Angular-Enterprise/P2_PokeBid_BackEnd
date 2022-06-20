@@ -3,10 +3,12 @@ package com.revature.pokebid.review;
 import com.revature.pokebid.user.User;
 
 import javax.persistence.*;
+import java.sql.Timestamp;
 
 @Entity
 @Table(name = "reviews")
 public class Review {
+
     @Id //Composite
     @OneToOne
     @JoinColumn (name = "listing_id")
@@ -23,12 +25,17 @@ public class Review {
     @Column(name = "review", nullable = false)
     private String review;
 
+    @Column(name = "date", nullable = false)
+    private Timestamp timestamp;
+
     //Constructors
-    public Review(CardListing listing, User seller, User reviewer, String review) {
+
+    public Review(CardListing listing, User seller, User reviewer, String review, Timestamp timestamp) {
         this.listing = listing;
         this.seller = seller;
         this.reviewer = reviewer;
         this.review = review;
+        this.timestamp = timestamp;
     }
 
     public Review() {
@@ -36,6 +43,7 @@ public class Review {
 
 
     //Gets and Sets
+
     public CardListing getListing() {
         return listing;
     }
@@ -68,6 +76,14 @@ public class Review {
         this.review = review;
     }
 
+    public Timestamp getTimestamp() {
+        return timestamp;
+    }
+
+    public void setTimestamp(Timestamp timestamp) {
+        this.timestamp = timestamp;
+    }
+
     @Override
     public String toString() {
         return "Review{" +
@@ -75,6 +91,7 @@ public class Review {
                 ", seller=" + seller +
                 ", reviewer=" + reviewer +
                 ", review='" + review + '\'' +
+                ", timestamp=" + timestamp +
                 '}';
     }
 }
