@@ -1,15 +1,17 @@
 package com.revature.pokebid.user;
 
-import com.revature.pokebid.user.dtos.requests.ChangeEmailRequest;
+import com.revature.pokebid.auth.dtos.requests.LoginRequest;
 import com.revature.pokebid.user.dtos.requests.ChangePasswordRequest;
-import com.revature.pokebid.user.dtos.requests.LoginRequest;
 import com.revature.pokebid.user.dtos.requests.NewUserRequest;
+import com.revature.pokebid.util.annotations.Inject;
+import com.revature.pokebid.util.cutom_exceptions.AuthenticationException;
+import com.revature.pokebid.util.cutom_exceptions.InvalidRequestException;
+import com.revature.pokebid.util.cutom_exceptions.ResourceConflictException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 @Service

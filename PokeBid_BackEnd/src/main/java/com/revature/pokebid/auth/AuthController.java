@@ -2,6 +2,7 @@ package com.revature.pokebid.auth;
 
 import com.revature.pokebid.auth.dtos.requests.LoginRequest;
 import com.revature.pokebid.auth.dtos.responses.Principal;
+import com.revature.pokebid.user.UserService;
 import com.revature.pokebid.util.annotations.Inject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -27,7 +28,7 @@ public class AuthController {
     }
 
     @PostMapping(consumes = "application/json", produces = MediaType.APPLICATION_JSON_VALUE)
-    public @ResponseBody Principal login(@ResponseBody LoginRequest request, HttpServletResponse resp) {
+    public @ResponseBody Principal login(LoginRequest request, HttpServletResponse resp) {
         Principal principal = new Principal(userService.login(request));
         String token = tokenService.generateToken(principal);
         resp.setHeader("Authorization", token);

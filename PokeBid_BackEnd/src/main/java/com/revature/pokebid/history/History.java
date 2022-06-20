@@ -21,11 +21,11 @@ public class History {
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
-    private User user_id;
+    private User user;
 
     @ManyToOne
     @JoinColumn(name = "listing_id", nullable = false)
-    private Listing listing_id;
+    private Listing listing;
 
     public History() { }
 
@@ -33,8 +33,8 @@ public class History {
         this.id = id;
         this.time = time;
         this.status_id = status_id;
-        this.user_id = users_id;
-        this.listing_id = listing_id;
+        this.user = users_id;
+        this.listing = listing_id;
     }
 
     //<editor-fold desc="Get/Set">
@@ -63,19 +63,19 @@ public class History {
     }
 
     public User getUsers_id() {
-        return user_id;
+        return user;
     }
 
     public void setUsers_id(User users_id) {
-        this.user_id = users_id;
+        this.user = users_id;
     }
 
     public Listing getListing_id() {
-        return listing_id;
+        return listing;
     }
 
     public void setListing_id(Listing listing_id) {
-        this.listing_id = listing_id;
+        this.listing = listing_id;
     }
     //</editor-fold>
 
@@ -85,8 +85,8 @@ public class History {
                 "id='" + id + '\'' +
                 ", time=" + time +
                 ", status_id='" + status_id + '\'' +
-                ", user_id=" + user_id +
-                ", listing_id=" + listing_id +
+                ", user_id=" + user +
+                ", listing_id=" + listing +
                 '}';
     }
 
