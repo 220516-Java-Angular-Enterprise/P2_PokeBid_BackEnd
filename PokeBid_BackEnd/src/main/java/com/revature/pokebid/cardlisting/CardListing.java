@@ -13,7 +13,7 @@ public class CardListing {
     @Id
     private String id;
     @ManyToOne
-    @JoinColumn(name="user")
+    @JoinColumn(name="user_id")
     private User user;
     @ManyToOne
     @JoinColumn(name="auction_bidder")

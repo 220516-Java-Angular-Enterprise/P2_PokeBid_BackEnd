@@ -102,7 +102,7 @@ public class UserService {
     }
 
     private boolean isValidEmail(String email){
-        return email.matches("^[a-zA-Z0-9_!#$%&’*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$");
+        return true;//email.matches("^[a-zA-Z0-9_!#$%&’*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$");
 
     }
 

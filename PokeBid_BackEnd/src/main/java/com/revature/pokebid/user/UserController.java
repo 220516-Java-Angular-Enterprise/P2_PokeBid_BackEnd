@@ -38,14 +38,14 @@ public UserController(UserService userService){
     return userService.getAllUsers();
 }
 
-@RequestMapping("/users/register")
+@RequestMapping("/register")
 @ResponseStatus(HttpStatus.CREATED)
 @PostMapping(consumes = "application/json", produces = MediaType.APPLICATION_JSON_VALUE)
 public @ResponseBody String register(@RequestBody NewUserRequest request){
     return userService.register(request).getId();
 }
 
-@RequestMapping("/users/changePassowrd")
+@RequestMapping("/changePassowrd")
 @ResponseStatus(HttpStatus.ACCEPTED)
 @PutMapping(consumes = "application/json", produces = MediaType.APPLICATION_JSON_VALUE)
 public @ResponseBody String changePassword(@RequestBody ChangePasswordRequest request){
@@ -88,9 +88,8 @@ public @ResponseBody Map<String, Object> handleBadRequestException(InvalidReques
     DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yy HH:Mmm");
 
     responseBody.put("Status:", 409);
-    responseBody.put("Message", e.getMessage());
+    responseBody.put("Message", e.getStackTrace());
     responseBody.put("Timestamp:", dtf.format(LocalDateTime.now()));
     return responseBody;
 }
-
 }
