@@ -1,5 +1,6 @@
 package com.revature.pokebid.condition;
 
+import com.revature.pokebid.util.annotations.Inject;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.Column;

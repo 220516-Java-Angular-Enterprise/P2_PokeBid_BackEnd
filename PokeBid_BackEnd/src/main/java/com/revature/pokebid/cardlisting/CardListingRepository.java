@@ -1,9 +1,11 @@
 package com.revature.pokebid.cardlisting;
 
 import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
 import java.sql.Timestamp;
+import java.util.List;
 
 public interface CardListingRepository extends CrudRepository<CardListing, String> {
 

@@ -10,13 +10,11 @@ import java.sql.Timestamp;
 @Entity
 @Table(name = "card_listings")
 public class CardListing {
-
     @Id
     private String id;
-
     @ManyToOne
-    @JoinColumn(name="lister")
-    private User lister;
+    @JoinColumn(name="user")
+    private User user;
     @ManyToOne
     @JoinColumn(name="auction_bidder")
     private User auction_bidder;
@@ -26,11 +24,11 @@ public class CardListing {
     @Column (name="auction_bid")
     private int auction_bid;
 
-    @OneToMany
+    @ManyToOne
     @JoinColumn(name="status")
     private Status status;
 
-    @OneToMany
+    @ManyToOne
     @JoinColumn(name="condition")
     private Condition condition;
 
@@ -52,11 +50,11 @@ public class CardListing {
     }
 
     public User getLister() {
-        return lister;
+        return user;
     }
 
     public void setLister(User lister) {
-        this.lister = lister;
+        this.user = lister;
     }
 
     public User getAuction_bidder() {

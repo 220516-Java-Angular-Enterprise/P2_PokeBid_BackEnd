@@ -1,11 +1,13 @@
 package com.revature.pokebid.auth;
 
 import io.jsonwebtoken.SignatureAlgorithm;
+import org.springframework.stereotype.Component;
 
 import javax.crypto.spec.SecretKeySpec;
 import javax.xml.bind.DatatypeConverter;
 import java.security.Key;
 
+@Component
 public class JwtConfig {
     private final String salt = "sdjfiuahighijhdnigfpsduychkjfkasdiuafhncxmnjhdkdfdnnmipu";
 

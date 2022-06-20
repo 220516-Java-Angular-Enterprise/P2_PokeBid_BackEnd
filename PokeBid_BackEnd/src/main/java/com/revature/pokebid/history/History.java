@@ -1,6 +1,7 @@
 package com.revature.pokebid.history;
 
-import com.revature.pokebid.listing.Listing;
+import com.revature.pokebid.cardlisting.CardListing;
+import com.revature.pokebid.status.Status;
 import com.revature.pokebid.user.User;
 
 import javax.persistence.*;
@@ -16,8 +17,9 @@ public class History {
     @Column(name = "time", nullable = false)
     private Timestamp time;
 
-    @OneToOne(mappedBy = "status_id")
-    private String status_id;
+    @ManyToOne
+    @JoinColumn(name = "status_id", nullable = false)
+    private Status status;
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
@@ -25,16 +27,16 @@ public class History {
 
     @ManyToOne
     @JoinColumn(name = "listing_id", nullable = false)
-    private Listing listing;
+    private CardListing listing;
 
     public History() { }
 
-    public History(String id, Timestamp time, String status_id, User users_id, Listing listing_id) {
+    public History(String id, Timestamp time, Status status, User users_id, CardListing listing) {
         this.id = id;
         this.time = time;
-        this.status_id = status_id;
+        this.status = status;
         this.user = users_id;
-        this.listing = listing_id;
+        this.listing = listing;
     }
 
     //<editor-fold desc="Get/Set">
@@ -54,12 +56,12 @@ public class History {
         this.time = time;
     }
 
-    public String getStatus_id() {
-        return status_id;
+    public Status getStatus() {
+        return status;
     }
 
-    public void setStatus_id(String status_id) {
-        this.status_id = status_id;
+    public void setStatus(Status status) {
+        this.status = status;
     }
 
     public User getUsers_id() {
@@ -70,12 +72,12 @@ public class History {
         this.user = users_id;
     }
 
-    public Listing getListing_id() {
+    public CardListing getListing_id() {
         return listing;
     }
 
-    public void setListing_id(Listing listing_id) {
-        this.listing = listing_id;
+    public void setListing_id(CardListing listing) {
+        this.listing = listing;
     }
     //</editor-fold>
 
@@ -84,7 +86,7 @@ public class History {
         return "History{" +
                 "id='" + id + '\'' +
                 ", time=" + time +
-                ", status_id='" + status_id + '\'' +
+                ", status_id='" + status + '\'' +
                 ", user_id=" + user +
                 ", listing_id=" + listing +
                 '}';

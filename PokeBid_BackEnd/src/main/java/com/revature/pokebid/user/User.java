@@ -1,7 +1,7 @@
 package com.revature.pokebid.user;
 
 import com.revature.pokebid.history.History;
-import com.revature.pokebid.listing.Listing;
+import com.revature.pokebid.cardlisting.CardListing;
 import com.revature.pokebid.pinned.Pinned;
 import com.revature.pokebid.review.Review;
 
@@ -35,21 +35,21 @@ public class User {
     @OneToMany(mappedBy = "user")
     List<Review> reviews;
 
-    @OneToMany(mappedBy ="user")
-    List<Pinned> pinned;
+    //@OneToMany(mappedBy ="user")
+    //List<Pinned> pinned;
 
     @OneToMany(mappedBy ="user")
     List<History> history;
 
     @OneToMany(mappedBy ="user")
-    List<Listing> listings;
+    List<CardListing> listings;
     //endregion
 
     //region Constructors
     public User() {
     }
 
-    public User(String id, String username, String password, String address, String role, String email, List<Review> reviews, List<Pinned> pinned, List<History> history, List<Listing> listings) {
+    public User(String id, String username, String password, String address, String role, String email, List<Review> reviews, /*List<Pinned> pinned,*/ List<History> history, List<CardListing> listings) {
         this.id = id;
         this.username = username;
         this.password = password;
@@ -57,7 +57,7 @@ public class User {
         this.role = role;
         this.email = email;
         this.reviews = reviews;
-        this.pinned = pinned;
+        //this.pinned = pinned;
         this.history = history;
         this.listings = listings;
     }
@@ -134,14 +134,14 @@ public class User {
     public void setReviews(List<Review> reviews) {
         this.reviews = reviews;
     }
-
+    /*
     public List<Pinned> getPinned() {
         return pinned;
     }
 
     public void setPinned(List<Pinned> pinned) {
         this.pinned = pinned;
-    }
+    } */
 
     public List<History> getHistory() {
         return history;
@@ -151,11 +151,11 @@ public class User {
         this.history = history;
     }
 
-    public List<Listing> getListings() {
+    public List<CardListing> getListings() {
         return listings;
     }
 
-    public void setListings(List<Listing> listings) {
+    public void setListings(List<CardListing> listings) {
         this.listings = listings;
     }
     //endregion
@@ -170,7 +170,7 @@ public class User {
                 ", address='" + address + '\'' +
                 ", role='" + role + '\'' +
                 ", reviews=" + reviews +
-                ", pinned=" + pinned +
+                //", pinned=" + pinned +
                 ", history=" + history +
                 ", listings=" + listings +
                 '}';

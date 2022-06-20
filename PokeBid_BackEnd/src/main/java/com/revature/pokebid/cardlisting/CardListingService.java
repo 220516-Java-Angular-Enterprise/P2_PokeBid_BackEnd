@@ -3,6 +3,7 @@ package com.revature.pokebid.cardlisting;
 
 import com.revature.pokebid.auth.JwtConfig;
 import com.revature.pokebid.cardlisting.dtos.cardlisting.NewCardListingRequest;
+import com.revature.pokebid.util.annotations.Inject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
@@ -35,8 +36,14 @@ public class CardListingService {
         return cardListing;
     }
 
-    public List<CardListing> getAllCardListing() {
+    CardListing getCardListingByID(String id){
+        return cardListingRepository.getCardListingByID(id);
+    }
+    public List<CardListing> getAllCardListings() {
         return (List<CardListing>) cardListingRepository.findAll();
     }
 
+    List<String> getAllCardIDByFromCardListings(){
+        return cardListingRepository.getAllCardIDByFromCardListings();
+    }
 }

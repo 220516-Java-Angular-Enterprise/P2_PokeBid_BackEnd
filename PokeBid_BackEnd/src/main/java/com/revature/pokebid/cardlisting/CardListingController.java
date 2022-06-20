@@ -1,7 +1,9 @@
 package com.revature.pokebid.cardlisting;
 
 import com.revature.pokebid.cardlisting.dtos.cardlisting.NewCardListingRequest;
-import org.graalvm.compiler.graph.Node;
+import com.revature.pokebid.util.annotations.Inject;
+import com.revature.pokebid.util.cutom_exceptions.InvalidRequestException;
+import com.revature.pokebid.util.cutom_exceptions.ResourceConflictException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -36,7 +38,7 @@ public class CardListingController {
     }
 
      @ExceptionHandler
-     @ResponseBody(HttpStatus.CONFLICT)
+     @ResponseStatus(HttpStatus.CONFLICT)
      public @ResponseBody Map<String, Object> handleResourceConflictException(ResourceConflictException e){
          Map<String, Object> responseBody = new LinkedHashMap<>();
          responseBody.put("status", 400);

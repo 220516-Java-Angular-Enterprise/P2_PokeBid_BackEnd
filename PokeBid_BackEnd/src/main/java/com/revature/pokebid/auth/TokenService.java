@@ -1,6 +1,7 @@
 package com.revature.pokebid.auth;
 
 import com.revature.pokebid.auth.dtos.responses.Principal;
+import com.revature.pokebid.auth.JwtConfig;
 import com.revature.pokebid.util.annotations.Inject;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtBuilder;

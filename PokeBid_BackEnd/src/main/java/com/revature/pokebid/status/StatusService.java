@@ -1,5 +1,6 @@
 package com.revature.pokebid.status;
 
+import com.revature.pokebid.util.annotations.Inject;
 import org.hibernate.service.spi.InjectService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

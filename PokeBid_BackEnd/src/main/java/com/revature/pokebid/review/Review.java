@@ -1,5 +1,6 @@
 package com.revature.pokebid.review;
 
+import com.revature.pokebid.cardlisting.CardListing;
 import com.revature.pokebid.user.User;
 
 import javax.persistence.*;
@@ -7,18 +8,21 @@ import javax.persistence.*;
 @Entity
 @Table(name = "reviews")
 public class Review {
+
     @Id //Composite
+    private String id;
+
     @OneToOne
     @JoinColumn (name = "listing_id")
     private CardListing listing;
 
-    @ManyToOne
-    @JoinColumn(name = "seller_id", nullable = false)
-    private User seller;
+    //@ManyToOne
+    //@JoinColumn(name = "user_id", nullable = false)
+    //private User seller;
 
     @ManyToOne
-    @JoinColumn(name ="reviewer_id", nullable = false)
-    private User reviewer;
+    @JoinColumn(name ="user_id", nullable = false)
+    private User user;
 
     @Column(name = "review", nullable = false)
     private String review;
@@ -26,8 +30,8 @@ public class Review {
     //Constructors
     public Review(CardListing listing, User seller, User reviewer, String review) {
         this.listing = listing;
-        this.seller = seller;
-        this.reviewer = reviewer;
+        //this.seller = seller;
+        this.user = reviewer;
         this.review = review;
     }
 
@@ -44,20 +48,20 @@ public class Review {
         this.listing = listing;
     }
 
-    public User getSeller() {
-        return seller;
-    }
+    //public User getSeller() {
+    //    return seller;
+    //}
 
-    public void setSeller(User seller) {
-        this.seller = seller;
-    }
+    //public void setSeller(User seller) {
+    //    this.seller = seller;
+    //}
 
     public User getReviewer() {
-        return reviewer;
+        return user;
     }
 
     public void setReviewer(User reviewer) {
-        this.reviewer = reviewer;
+        this.user = reviewer;
     }
 
     public String getReview() {
@@ -72,8 +76,8 @@ public class Review {
     public String toString() {
         return "Review{" +
                 "listing=" + listing +
-                ", seller=" + seller +
-                ", reviewer=" + reviewer +
+                //", seller=" + seller +
+                ", reviewer=" + user +
                 ", review='" + review + '\'' +
                 '}';
     }
