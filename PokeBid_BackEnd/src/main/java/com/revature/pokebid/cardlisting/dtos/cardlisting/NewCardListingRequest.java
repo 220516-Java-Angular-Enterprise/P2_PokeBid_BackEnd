@@ -3,24 +3,22 @@ package com.revature.pokebid.cardlisting.dtos.cardlisting;
 import com.revature.pokebid.cardlisting.CardListing;
 import com.revature.pokebid.user.User;
 
-import java.sql.Timestamp;
-
 public class NewCardListingRequest {
 
     User lister; //UPDATE TO WORK BY GET USER BY ID!!! OR EXTRACT FROM TOKEN!
     String card_id
     int auction_bid;
-    String condition_id;
+    String condition;
     String description;
     //Timestamp endTime;
 
     public NewCardListingRequest(){}
 
-    public NewCardListingRequest(User lister, String card_id, int auction_bid, String condition_id, String description){//, Timestamp endTime){
+    public NewCardListingRequest(User lister, String card_id, int auction_bid, String condition, String description){//, Timestamp endTime){
         this.lister = lister;
         this.card_id = card_id;
         this.auction_bid = auction_bid;
-        this.condition_id = condition_id;
+        this.condition = condition;
         this.description = description;
         //this.endTime = endTime;
     }
@@ -45,12 +43,12 @@ public class NewCardListingRequest {
         this.auction_bid = auction_bid;
     }
 
-    public String getCondition_id() {
-        return condition_id;
+    public String getCondition() {
+        return condition;
     }
 
-    public void setCondition_id(String condition_id) {
-        this.condition_id = condition_id;
+    public void setCondition(String condition) {
+        this.condition = condition;
     }
 
     public String getDescription() {
@@ -63,15 +61,16 @@ public class NewCardListingRequest {
 
     public CardListing ExtractCardListing() {
         CardListing cardListing = new CardListing();
-        cardListing.setLister_id(lister); //UPDATE THIS!!!!
-        cardListing.setCard_id(card_id);
+        cardListing.setLister(lister); //UPDATE THIS!!!!
+        cardListing.setCard(card_id);
         cardListing.setAuction_bidder(null);
         cardListing.setAuction_bid(auction_bid);
-        cardListing.setStatus_id(); //SET TO BE LIKE SOMETHING!!!!
-        cardListing.setCondition_id(condition_id); //SET TO BE LIKE SOMETHING!!!!
+        cardListing.setStatus(); //SET TO BE LIKE SOMETHING!!!!
+        cardListing.setCondition(condition); //SET TO BE LIKE SOMETHING!!!!
         cardListing.setCard_description(description);
         cardListing.setTime_end(null); //Set when register save listing!
 
+        return cardListing;
     }
 
     /*

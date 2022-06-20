@@ -38,5 +38,5 @@ public class CardListingService {
     public List<CardListing> getAllCardListing() {
         return (List<CardListing>) cardListingRepository.findAll();
     }
-    
+
 }

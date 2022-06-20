@@ -15,24 +15,24 @@ public class CardListing {
     private String id;
 
     @ManyToOne
-    @JoinColumn(name="lister_id")
-    private User lister_id;
+    @JoinColumn(name="lister")
+    private User lister;
     @ManyToOne
     @JoinColumn(name="auction_bidder")
     private User auction_bidder;
 
-    @Column(name="card_id", nullable = false)
-    private String card_id;
+    @Column(name="card", nullable = false)
+    private String card;
     @Column (name="auction_bid")
     private int auction_bid;
 
     @OneToMany
-    @JoinColumn(name="status_id")
-    private Status status_id;
+    @JoinColumn(name="status")
+    private Status status;
 
     @OneToMany
-    @JoinColumn(name="condition_id")
-    private Condition condition_id;
+    @JoinColumn(name="condition")
+    private Condition condition;
 
     @Column(name = "card_description")
     private String card_description;
@@ -51,12 +51,12 @@ public class CardListing {
         this.id = id;
     }
 
-    public User getLister_id() {
-        return lister_id;
+    public User getLister() {
+        return lister;
     }
 
-    public void setLister_id(User lister_id) {
-        this.lister_id = lister_id;
+    public void setLister(User lister) {
+        this.lister = lister;
     }
 
     public User getAuction_bidder() {
@@ -67,12 +67,12 @@ public class CardListing {
         this.auction_bidder = auction_bidder;
     }
 
-    public String getCard_id() {
-        return card_id;
+    public String getCard() {
+        return card;
     }
 
-    public void setCard_id(String card_id) {
-        this.card_id = card_id;
+    public void setCard(String card) {
+        this.card = card;
     }
 
     public int getAuction_bid() {
@@ -83,20 +83,20 @@ public class CardListing {
         this.auction_bid = auction_bid;
     }
 
-    public Status getStatus_id() {
-        return status_id;
+    public Status getStatus() {
+        return status;
     }
 
-    public void setStatus_id(Status status_id) {
-        this.status_id = status_id;
+    public void setStatus(Status status) {
+        this.status = status;
     }
 
-    public Condition getCondition_id() {
-        return condition_id;
+    public Condition getCondition() {
+        return condition;
     }
 
-    public void setCondition_id(Condition condition_id) {
-        this.condition_id = condition_id;
+    public void setCondition(Condition condition) {
+        this.condition = condition;
     }
 
     public String getCard_description() {
