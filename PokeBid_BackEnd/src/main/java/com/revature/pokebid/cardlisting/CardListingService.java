@@ -36,7 +36,7 @@ public class CardListingService {
         return cardListing;
     }
 
-    CardListing getCardListingByID(String id){
+    public CardListing getCardListingByID(String id){
         return cardListingRepository.getCardListingByID(id);
     }
     public List<CardListing> getAllCardListings() {
