@@ -3,7 +3,7 @@ package com.revature.pokebid.pinned.dtos.requests;
 import com.revature.pokebid.cardlisting.CardListing;
 import com.revature.pokebid.pinned.Pinned;
 import com.revature.pokebid.user.User;
-import javax.smartcardio.Card;
+
 
 public class AddPinnedRequest {
 
