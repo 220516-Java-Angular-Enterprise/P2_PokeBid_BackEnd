@@ -9,34 +9,34 @@ import java.sql.Timestamp;
 
 public class NewHistoryRequest {
 
-    private Status status;
-    private User user;
-    private CardListing listing;
+    private String status_id;
+    private String user_id;
+    private String listing_id;
 
-    public NewHistoryRequest(String id, Timestamp time, Status status, User user, CardListing listing) {
-        this.status = status;
-        this.user = user;
-        this.listing = listing;
+    public NewHistoryRequest(String id, Timestamp time, String status_id, String user_id, String listing_id) {
+        this.status_id = status_id;
+        this.user_id = user_id;
+        this.listing_id = listing_id;
     }
 
     public NewHistoryRequest() { }
-    public Status getStatus() {
-        return status;
+    public String getStatus_id() {
+        return status_id;
     }
-    public void setStatus(Status status) {
-        this.status = status;
+    public void setStatus_id(String status_id) {
+        this.status_id = status_id;
     }
-    public User getUser() {
-        return user;
+    public String getUser_id() {
+        return user_id;
     }
-    public void setUser(User user) {
-        this.user = user;
+    public void setUser_id(String user_id) {
+        this.user_id = user_id;
     }
-    public CardListing getListing() {
-        return listing;
+    public String getListing_id() {
+        return listing_id;
     }
-    public void setListing(CardListing listing) {
-        this.listing = listing;
+    public void setListing_id(String listing_id) {
+        this.listing_id = listing_id;
     }
 
 

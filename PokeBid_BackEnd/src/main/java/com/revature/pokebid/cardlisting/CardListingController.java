@@ -3,7 +3,6 @@ package com.revature.pokebid.cardlisting;
 import com.revature.pokebid.cardlisting.dtos.cardlisting.NewCardListingRequest;
 import com.revature.pokebid.cardlisting.dtos.cardlisting.UpdateBidderRequest;
 import com.revature.pokebid.cardlisting.dtos.cardlisting.UpdateStatusRequest;
-import com.revature.pokebid.user.User;
 import com.revature.pokebid.util.annotations.Inject;
 import com.revature.pokebid.util.cutom_exceptions.InvalidRequestException;
 import com.revature.pokebid.util.cutom_exceptions.ResourceConflictException;
@@ -12,7 +11,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
-import javax.smartcardio.Card;
 import java.time.LocalDateTime;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -46,6 +44,17 @@ public class CardListingController {
     @GetMapping(value = "/bidder/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody List<CardListing> getAllCardListingsByBidderId(@PathVariable String id) { return cardListingService.getAllCardListingsByBidderId(id); }
 
+    @CrossOrigin
+    @GetMapping(value = "/status/{status_id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public @ResponseBody List<CardListing> getAllCardListingsOfStatus(@PathVariable String status_id) { return cardListingService.getAllCardListingsByStatusId(status_id); }
+    @CrossOrigin
+    @GetMapping(value = "/cardID/{card_id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public @ResponseBody List<CardListing> getAllCardListingsByCardId(@PathVariable String card_id) { return cardListingService.getAllCardListingByCardId(card_id); }
+
+    //@CrossOrigin
+    //@GetMapping(value = "/cardName/{card_name}", produces = MediaType.APPLICATION_JSON_VALUE)
+    //public @ResponseBody List<CardListing> getAllCardListingsByCardName(@PathVariable String cardName) { return cardListingService.getAllCardListingsByCardName(cardName); }
+
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping(consumes = "application/json", produces = MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody String registerListing(@RequestBody NewCardListingRequest request){
@@ -61,6 +70,14 @@ public class CardListingController {
     public @ResponseBody CardListing updateStatus(@RequestBody UpdateStatusRequest request) {
         return cardListingService.updateStatus(request);
     }
+
+    @ResponseStatus(HttpStatus.GONE)
+    @DeleteMapping(value = "/deleteListing/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public @ResponseBody String deleteReview(@PathVariable String id){
+        cardListingService.deleteCardListings(id);
+        return id;
+    }
+
      @ExceptionHandler
      @ResponseStatus(HttpStatus.CONFLICT)
      public @ResponseBody Map<String, Object> handleResourceConflictException(ResourceConflictException e){

@@ -65,9 +65,8 @@ public class ReviewController {
     }
 
     @ResponseStatus(HttpStatus.GONE)
-    @RequestMapping("/deleteReview")
-    @DeleteMapping
-    public @ResponseBody String deleteReview(@RequestBody String id){
+    @DeleteMapping(value = "/deleteReview/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public @ResponseBody String deleteReview(@PathVariable String id){
         reviewService.deleteReview(id);
         return id;
     }

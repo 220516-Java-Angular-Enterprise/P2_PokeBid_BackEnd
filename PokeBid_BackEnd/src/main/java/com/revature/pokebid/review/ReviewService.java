@@ -26,13 +26,16 @@ public class ReviewService {
     @Inject
     private final ReviewRepository reviewRepo;
     private final CardListingService cardListingService;
+    private final UserService userService;
 
     @Inject
     @Autowired
-    public ReviewService(ReviewRepository reviewRepo, CardListingService cardListingService) {
+    public ReviewService(ReviewRepository reviewRepo, CardListingService cardListingService, UserService userService) {
         this.reviewRepo = reviewRepo;
         this.cardListingService = cardListingService;
+        this.userService = userService;
     }
+
 
 
     public Review createReview(NewReviewRequest request) {
@@ -42,6 +45,7 @@ public class ReviewService {
         review.setReview(request.getReview());
         review.setListing(cardListingService.getCardListingByID(request.getListingId()));
         review.setSeller(review.getListing().getLister());
+        review.setUser(userService.getUserById(request.getReviewerId()));
         review.setTimestamp(Timestamp.from(Instant.now()));
         reviewRepo.registerReview(review.getId(), review.getListing().getId(), review.getSeller().getId(), review.getUser().getId(), review.getRating(), review.getReview(), review.getTimestamp());
         return review;

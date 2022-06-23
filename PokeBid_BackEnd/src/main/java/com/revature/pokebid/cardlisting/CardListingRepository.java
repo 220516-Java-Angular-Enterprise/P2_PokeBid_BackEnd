@@ -26,12 +26,21 @@ public interface CardListingRepository extends CrudRepository<CardListing, Strin
 
     @Query(value = "SELECT * FROM card_listings WHERE user_id = ?1", nativeQuery = true)
     List<CardListing> getAllCardListingsByUserId(String id);
+
+    @Query(value = "SELECT * FROM card_listings WHERE status_id = ?1", nativeQuery = true)
+    List<CardListing> getAllCardListingsByStatusId(String status_id);
+
+    @Query(value = "SELECT * FROM card_listings WHERE card_id = ?1", nativeQuery = true)
+    List<CardListing> getAllCardListingsByCardId(String card_id);
+
     @Modifying
     @Query(value = "UPDATE card_listings SET auction_bidder = ?1, auction_bid = ?2 WHERE id = ?3", nativeQuery = true)
     void updateCardListingBidder(User auction_bidder, int auction_bid, String id);
-
     @Modifying
     @Query(value = "UPDATE card_listings SET status = ?1 WHERE id = ?2", nativeQuery = true)
     void updateCardListingStatus(Status status, String id);
+    @Modifying
+    @Query(value = "DELETE FROM card_listings WHERE id = ?1", nativeQuery = true)
+    void deleteCardListings(String id);
 
 }

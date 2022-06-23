@@ -11,12 +11,15 @@ import java.util.Optional;
 public interface HistoryRepository extends CrudRepository<History, String> {
 
     @Modifying
-    @Query(value = "INSERT INTO user_history (id, time, status_id, user_id, listing_id) VALUES (?1, ?2, ?3, ?4, ?5)", nativeQuery = true)
+    @Query(value = "INSERT INTO order_history (id, time, status_id, user_id, listing_id) VALUES (?1, ?2, ?3, ?4, ?5)", nativeQuery = true)
     void saveHistory(String id, Timestamp time, String status_id, String user_id, String listing_id);
 
-    @Query(value = "SELECT * FROM user_history WHERE user_id = ?1", nativeQuery = true)
+    @Query(value = "SELECT * FROM order_history WHERE user_id = ?1", nativeQuery = true)
     List<History> findAllByUserId(String user_id);
 
-    @Query(value = "SELECT * FROM user_history WHERE id = ?1", nativeQuery = true)
+    @Query(value = "SELECT * FROM order_history WHERE user_id = ?1 AND status_id = ?2", nativeQuery = true)
+    List<History> findAllByUserAndStatusId(String user_id, String status_id);
+
+    @Query(value = "SELECT * FROM order_history WHERE id = ?1", nativeQuery = true)
     History findByHistoryId(String id);
 }

@@ -3,6 +3,7 @@ package com.revature.pokebid.history;
 import com.revature.pokebid.history.dtos.requests.NewHistoryRequest;
 import com.revature.pokebid.pinned.Pinned;
 import com.revature.pokebid.pinned.dtos.requests.AddPinnedRequest;
+import com.revature.pokebid.review.Review;
 import com.revature.pokebid.util.annotations.Inject;
 import com.revature.pokebid.util.cutom_exceptions.InvalidRequestException;
 import com.revature.pokebid.util.cutom_exceptions.ResourceConflictException;
@@ -30,7 +31,7 @@ public class HistoryController {
         this.historyService = historyService;
     }
     @CrossOrigin
-    @GetMapping(value = "/{user_id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/users/{user_id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody List<History> getAllHistoryByUserId(@PathVariable String user_id) {
         return historyService.getAllHistoryByUserId(user_id);
     }
@@ -43,6 +44,16 @@ public class HistoryController {
     @PostMapping(consumes = "application/json", produces = MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody History addHistory(@RequestBody NewHistoryRequest request){
         return historyService.addHistory(request);
+    }
+    @GetMapping
+    public @ResponseBody List<History> getAllHistories() {
+        return historyService.getAllHistory();
+    }
+
+    @CrossOrigin
+    @GetMapping(value = "/userSearch/{user_id}/{status_id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public @ResponseBody List<History> getAllByUserAndStatus(@PathVariable String user_id, @PathVariable String status_id) {
+        return historyService.findAllByUserAndStatus(user_id, status_id);
     }
 
     @ExceptionHandler

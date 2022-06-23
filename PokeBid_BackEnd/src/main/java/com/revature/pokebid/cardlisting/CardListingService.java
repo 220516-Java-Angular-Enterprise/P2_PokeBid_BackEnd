@@ -14,10 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.sql.Timestamp;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 
 @Service
 @Transactional
@@ -84,6 +81,23 @@ public class CardListingService {
     }
     public List<CardListing> getAllCardListingsByUserId(String id) { return (List<CardListing>) cardListingRepository.getAllCardListingsByUserId(id); }
     public List<CardListing> getAllCardListingsByBidderId(String id) { return (List<CardListing>) cardListingRepository.getAllCardListingsByBidderId(id); }
+    public void deleteCardListings(String id) { cardListingRepository.deleteCardListings(id); }
+    public List<CardListing> getAllCardListingsByStatusId(String status_id) { return cardListingRepository.getAllCardListingsByStatusId(status_id); }
+    public List<CardListing> getAllCardListingByCardId(String card_id) { return cardListingRepository.getAllCardListingsByCardId(card_id); }
+
+    /*
+    public List<CardListing> getAllCardListingsByCardName(String card_name) {
+        List<CardListing> allListings = (List<CardListing>) cardListingRepository.findAll();
+        List<CardListing> searchList = new ArrayList<>();
+        for (int i = 0; i < allListings.size(); i++) {
+            try {
+                if (card_name.equals(allListings.get(i).
+                        substring(0, input.length())))
+                    autoCompleteList.add(advs.get(i));
+            } catch (IndexOutOfBoundsException ignore) { }
+        }
+
+    } */
 
     List<String> getAllCardIDByFromCardListings(){
         return cardListingRepository.getAllCardIDFromCardListings();

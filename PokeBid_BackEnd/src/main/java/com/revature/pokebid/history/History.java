@@ -32,20 +32,12 @@ public class History {
 
     public History() { }
 
-    public History(String id, Timestamp time, Status status, User users_id, CardListing listing) {
+    public History(String id, Timestamp time, Status status, User users, CardListing listing) {
         this.id = id;
         this.time = time;
         this.status = status;
-        this.user = users_id;
+        this.user = users;
         this.listing = listing;
-    }
-
-    public History(String id, Timestamp time, NewHistoryRequest request) {
-        this.id = id;
-        this.time = time;
-        this.status = request.getStatus();
-        this.user = request.getUser();
-        this.listing = request.getListing();
     }
 
     //<editor-fold desc="Get/Set">
@@ -77,15 +69,15 @@ public class History {
         return user;
     }
 
-    public void setUsers_id(User users_id) {
+    public void setUsers(User users_id) {
         this.user = users_id;
     }
 
-    public CardListing getListing_id() {
+    public CardListing getListing() {
         return listing;
     }
 
-    public void setListing_id(CardListing listing) {
+    public void setListing(CardListing listing) {
         this.listing = listing;
     }
     //</editor-fold>
