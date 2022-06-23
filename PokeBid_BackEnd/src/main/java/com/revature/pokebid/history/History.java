@@ -1,6 +1,7 @@
 package com.revature.pokebid.history;
 
 import com.revature.pokebid.cardlisting.CardListing;
+import com.revature.pokebid.history.dtos.requests.NewHistoryRequest;
 import com.revature.pokebid.status.Status;
 import com.revature.pokebid.user.User;
 
@@ -37,6 +38,14 @@ public class History {
         this.status = status;
         this.user = users_id;
         this.listing = listing;
+    }
+
+    public History(String id, Timestamp time, NewHistoryRequest request) {
+        this.id = id;
+        this.time = time;
+        this.status = request.getStatus();
+        this.user = request.getUser();
+        this.listing = request.getListing();
     }
 
     //<editor-fold desc="Get/Set">

@@ -1,6 +1,9 @@
 package com.revature.pokebid.user;
 
 import com.revature.pokebid.auth.dtos.requests.LoginRequest;
+import com.revature.pokebid.condition.Condition;
+import com.revature.pokebid.user.dtos.requests.ChangeAddressRequest;
+import com.revature.pokebid.user.dtos.requests.ChangeEmailRequest;
 import com.revature.pokebid.user.dtos.requests.ChangePasswordRequest;
 import com.revature.pokebid.user.dtos.requests.NewUserRequest;
 import com.revature.pokebid.util.annotations.Inject;
@@ -12,6 +15,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -46,9 +50,15 @@ public class UserService {
 
     }
 
-
-    public void updateById(String id){
+    public void updateEmailById(String id, ChangeEmailRequest request){
         User user = getUserById(id);
+        user.setEmail(request.getEmail());
+        userRepo.updateUser(user.getUsername(), user.getPassword(), user.getAddress(), user.getEmail(), user.getRole(), user.getId());
+    }
+
+    public void updateAddressById(String id, ChangeAddressRequest request){
+        User user = getUserById(id);
+        user.setEmail(request.getAddress());
         userRepo.updateUser(user.getUsername(), user.getPassword(), user.getAddress(), user.getEmail(), user.getRole(), user.getId());
     }
 
@@ -81,6 +91,10 @@ public class UserService {
     public User getUserById(String id) {
         return userRepo.getUserById(id);
     }
+    public Optional<User> getByUserId(String id){
+        return userRepo.findById(id);
+    }
+
 
     private boolean isValidUsername(String username) {
         if(username == null){

@@ -1,5 +1,7 @@
 package com.revature.pokebid.cardlisting;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.revature.pokebid.condition.Condition;
 import com.revature.pokebid.status.Status;
 import com.revature.pokebid.user.User;
@@ -13,31 +15,55 @@ public class CardListing {
     @Id
     private String id;
     @ManyToOne
-    @JoinColumn(name="user_id")
+    @JoinColumn(name="user_id", nullable = false) //Seller
     private User user;
     @ManyToOne
-    @JoinColumn(name="auction_bidder")
+    @JoinColumn(name="auction_bidder") // Buyer
     private User auction_bidder;
 
-    @Column(name="card", nullable = false)
-    private String card;
+    @Column(name="card_id", nullable = false)
+    private String card_id;
+
     @Column (name="auction_bid")
     private int auction_bid;
 
     @ManyToOne
-    @JoinColumn(name="status")
+    @JoinColumn(name="status", nullable = false)
     private Status status;
 
     @ManyToOne
-    @JoinColumn(name="condition")
+    @JoinColumn(name="condition", nullable = false)
     private Condition condition;
 
     @Column(name = "card_description")
     private String card_description;
 
-    @Column(name = "time_end")
+    @Column(name = "time_end", nullable = false)
     private Timestamp time_end;
 
+
+    public CardListing(String id, User user, User auction_bidder, String card_id, int auction_bid, Status status, Condition condition, String card_description, Timestamp time_end) {
+        this.id = id;
+        this.user = user;
+        this.auction_bidder = auction_bidder;
+        this.card_id = card_id;
+        this.auction_bid = auction_bid;
+        this.status = status;
+        this.condition = condition;
+        this.card_description = card_description;
+        this.time_end = time_end;
+    }
+
+    public CardListing(String id, User user, String card_id, Status status, Condition condition, Timestamp time_end) {
+        this.id = id;
+        this.user = user;
+        this.card_id = card_id;
+        this.status = status;
+        this.condition = condition;
+        this.time_end = time_end;
+    }
+
+    public CardListing() { }
 
     //<editor-fold desc="Get/Set">
 
@@ -65,12 +91,12 @@ public class CardListing {
         this.auction_bidder = auction_bidder;
     }
 
-    public String getCard() {
-        return card;
+    public String getCard_id() {
+        return card_id;
     }
 
-    public void setCard(String card) {
-        this.card = card;
+    public void setCard_id(String card_id) {
+        this.card_id = card_id;
     }
 
     public int getAuction_bid() {

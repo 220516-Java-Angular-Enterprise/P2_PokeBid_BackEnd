@@ -12,31 +12,31 @@ import java.sql.Timestamp;
 
 public class NewCardListingRequest {
 
-    User lister; //UPDATE TO WORK BY GET USER BY ID!!! OR EXTRACT FROM TOKEN!
+    String lister_id;
     String card_id;
     int auction_bid;
-    Condition condition;
-    Status status;
+    String condition_id;
+    String status_id;
     String description;
     Timestamp endTime;
 
     public NewCardListingRequest(){}
 
-    public NewCardListingRequest(User lister, String card_id, int auction_bid, Condition condition, Status status, String description, Timestamp endTime){
-        this.lister = lister;
+    public NewCardListingRequest(String lister_id, String card_id, int auction_bid, String condition_id, String status_id, String description, Timestamp endTime){
+        this.lister_id = lister_id;
         this.card_id = card_id;
         this.auction_bid = auction_bid;
-        this.condition = condition;
-        this.status = status;
+        this.condition_id = condition_id;
+        this.status_id = status_id;
         this.description = description;
         this.endTime = endTime;
     }
 
-    public User getLister() {
-        return lister;
+    public String getLister_id() {
+        return lister_id;
     }
-    public void setLister(User lister) {
-        this.lister = lister;
+    public void setLister(String lister_id) {
+        this.lister_id = lister_id;
     }
     public int getAuction_bid() {
         return auction_bid;
@@ -44,17 +44,17 @@ public class NewCardListingRequest {
     public void setAuction_bid(int auction_bid) {
         this.auction_bid = auction_bid;
     }
-    public Condition getCondition() {
-        return condition;
+    public String getCondition_id() {
+        return condition_id;
     }
-    public void setCondition(Condition condition) {
-        this.condition = condition;
+    public void setCondition_id(String condition_id) {
+        this.condition_id = condition_id;
     }
-    public Status getStatus() {
-        return status;
+    public String getStatus_id() {
+        return status_id;
     }
-    public void setStatus(Status status) {
-        this.status = status;
+    public void setStatus_id(String status_id) {
+        this.status_id = status_id;
     }
     public String getDescription() {
         return description;
@@ -69,17 +69,7 @@ public class NewCardListingRequest {
         this.endTime = endTime;
     }
 
+    public String getCard_id() { return card_id; }
 
-    public CardListing ExtractCardListing() {
-        CardListing cardListing = new CardListing();
-        cardListing.setLister(lister); //UPDATE THIS!!!!
-        cardListing.setCard(card_id);
-        cardListing.setAuction_bidder(null);
-        cardListing.setAuction_bid(auction_bid);
-        cardListing.setStatus(status); //SET TO BE LIKE SOMETHING!!!!
-        cardListing.setCondition(condition); //SET TO BE LIKE SOMETHING!!!!
-        cardListing.setCard_description(description);
-        cardListing.setTime_end(endTime); //Set when register save listing!
-        return cardListing;
-    }
+    public void setCard_id(String card_id) { this.card_id = card_id; }
 }

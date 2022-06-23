@@ -1,5 +1,7 @@
 package com.revature.pokebid.auth.dtos.requests;
 
+import com.revature.pokebid.util.cutom_exceptions.InvalidRequestException;
+
 public class LoginRequest {
     private String username;
     private String password;

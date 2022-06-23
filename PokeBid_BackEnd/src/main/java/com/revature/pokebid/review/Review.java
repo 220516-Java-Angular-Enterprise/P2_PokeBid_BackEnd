@@ -14,16 +14,19 @@ public class Review {
     private String id;
 
     @OneToOne
-    @ManyToOne
-    @JoinColumns ({
-            @JoinColumn(name = "listing_id", referencedColumnName = "id"),
-            @JoinColumn(name="seller_id", referencedColumnName = "auction_bidder")
-                })
+    @JoinColumn(name = "listing_id", nullable = false)
     private CardListing listing;
 
     @ManyToOne
+    @JoinColumn(name = "seller_id", nullable = false)
+    private User seller;
+
+    @ManyToOne
     @JoinColumn(name ="user_id", nullable = false)
-    private User user;
+    private User user; // Person that has the review on them.
+
+    @Column(name = "rating", nullable = false)
+    private int rating;
 
     @Column(name = "review", nullable = false)
     private String review;
@@ -32,10 +35,12 @@ public class Review {
     private Timestamp timestamp;
 
     //region Constructors
-    public Review(String id, CardListing listing, User user, String review, Timestamp timestamp) {
+    public Review(String id, CardListing listing, User seller, User user, int rating, String review, Timestamp timestamp) {
         this.id = id;
         this.listing = listing;
+        this.seller = seller;
         this.user = user;
+        this.rating = rating;
         this.review = review;
         this.timestamp = timestamp;
     }
@@ -87,6 +92,23 @@ public class Review {
     public void setTimestamp(Timestamp timestamp) {
         this.timestamp = timestamp;
     }
+
+    public int getRating() {
+        return rating;
+    }
+
+    public void setRating(int rating) {
+        this.rating = rating;
+    }
+
+    public User getSeller() {
+        return seller;
+    }
+
+    public void setSeller(User seller) {
+        this.seller = seller;
+    }
+
     //endregion
     @Override
     public String toString() {
