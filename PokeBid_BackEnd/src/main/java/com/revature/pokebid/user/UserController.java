@@ -41,6 +41,10 @@ public class UserController {
         return userService.getByUserId(id);
     }
 
+    @CrossOrigin
+    @GetMapping(value = "/get-by-email/{email}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public @ResponseBody Optional<User> getUserByEmail(@PathVariable String email) { return userService.getUserByEmail(email); }
+
     @RequestMapping("/register")
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping(consumes = "application/json", produces = MediaType.APPLICATION_JSON_VALUE)

@@ -5,6 +5,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface UserRepository extends CrudRepository<User, String> {
 
@@ -34,4 +35,6 @@ public interface UserRepository extends CrudRepository<User, String> {
     @Query(value = "SELECT email from users", nativeQuery = true)
     List<String> getAllEmails();
 
+    @Query(value = "SELECT * FROM users WHERE email = ?1", nativeQuery = true)
+    Optional<User> getUserByEmail(String email);
 }

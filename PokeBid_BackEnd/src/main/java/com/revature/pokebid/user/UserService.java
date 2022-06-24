@@ -10,7 +10,6 @@ import com.revature.pokebid.util.annotations.Inject;
 import com.revature.pokebid.util.cutom_exceptions.AuthenticationException;
 import com.revature.pokebid.util.cutom_exceptions.InvalidRequestException;
 import com.revature.pokebid.util.cutom_exceptions.ResourceConflictException;
-import com.sun.xml.internal.messaging.saaj.util.SAAJUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -152,4 +151,7 @@ public class UserService {
     }
 
 
+    public Optional<User> getUserByEmail(String email) {
+        return userRepo.getUserByEmail(email);
+    }
 }
