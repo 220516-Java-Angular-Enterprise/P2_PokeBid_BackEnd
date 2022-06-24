@@ -1,17 +1,22 @@
 package com.revature.pokebid.user;
 
 import com.revature.pokebid.auth.dtos.requests.LoginRequest;
+import com.revature.pokebid.condition.Condition;
+import com.revature.pokebid.user.dtos.requests.ChangeAddressRequest;
+import com.revature.pokebid.user.dtos.requests.ChangeEmailRequest;
 import com.revature.pokebid.user.dtos.requests.ChangePasswordRequest;
 import com.revature.pokebid.user.dtos.requests.NewUserRequest;
 import com.revature.pokebid.util.annotations.Inject;
 import com.revature.pokebid.util.cutom_exceptions.AuthenticationException;
 import com.revature.pokebid.util.cutom_exceptions.InvalidRequestException;
 import com.revature.pokebid.util.cutom_exceptions.ResourceConflictException;
+import com.sun.xml.internal.messaging.saaj.util.SAAJUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -46,9 +51,15 @@ public class UserService {
 
     }
 
-
-    public void updateById(String id){
+    public void updateEmailById(String id, ChangeEmailRequest request){
         User user = getUserById(id);
+        user.setEmail(request.getEmail());
+        userRepo.updateUser(user.getUsername(), user.getPassword(), user.getAddress(), user.getEmail(), user.getRole(), user.getId());
+    }
+
+    public void updateAddressById(String id, ChangeAddressRequest request){
+        User user = getUserById(id);
+        user.setEmail(request.getAddress());
         userRepo.updateUser(user.getUsername(), user.getPassword(), user.getAddress(), user.getEmail(), user.getRole(), user.getId());
     }
 
@@ -57,9 +68,28 @@ public class UserService {
     }
 
     public User register(NewUserRequest request) {
-        User user = request.extractUser(); //extracts Username, email, address;
+        User user = new User(); //extracts Username, email, address;
+        user.setUsername(request.getUsername());
+        user.setEmail(request.getEmail());
+        user.setAddress(request.getAddress());
 
-        if (isNotDuplicateUsername(user.getUsername())) {
+        //If they are creating an account through auth0 we just have the email and password
+        if (user.getUsername() == null && user.getEmail() != null && request.getPassword() != null) {
+            if (isValidPassword(request.getPassword())) {
+                user.setPassword(request.getPassword()); //Sets password
+                if (isNotDuplicateEmail(user.getEmail())) {
+                    if (isValidEmail(user.getEmail())) {
+                        user.setId(UUID.randomUUID().toString());
+                        user.setUsername(request.getEmail());
+                        user.setAddress("N/A");
+                        user.setRole("DEFAULT");
+                        userRepo.saveUser(user.getId(), user.getUsername(), user.getPassword(), user.getAddress(), user.getEmail(), user.getRole());
+                    }
+                }
+            }
+        }
+
+        else if (isNotDuplicateUsername(user.getUsername())) {
             if (isValidUsername(user.getUsername())) {
                 if (isValidPassword(request.getPassword())) {
                     user.setPassword(request.getPassword()); //Sets password
@@ -67,7 +97,12 @@ public class UserService {
                         if (isValidEmail(user.getEmail())) {
                             user.setId(UUID.randomUUID().toString()); //Sets Id
                             user.setRole("DEFAULT"); //Sets Role Id
-                            userRepo.saveUser(user.getId(), user.getUsername(), user.getPassword(), user.getAddress(), user.getRole(), user.getEmail()); // Registers user.
+
+                            if ( user.getAddress() == null ) {
+                                user.setAddress("N/A");
+                            }
+
+                            userRepo.saveUser(user.getId(), user.getUsername(), user.getPassword(), user.getAddress(), user.getEmail(), user.getRole()); // Registers user.
 
                         } else throw new InvalidRequestException("Invalid email entered.");
                     } else throw new ResourceConflictException("Email is already taken by another user.");
@@ -81,6 +116,10 @@ public class UserService {
     public User getUserById(String id) {
         return userRepo.getUserById(id);
     }
+    public Optional<User> getByUserId(String id){
+        return userRepo.findById(id);
+    }
+
 
     private boolean isValidUsername(String username) {
         if(username == null){

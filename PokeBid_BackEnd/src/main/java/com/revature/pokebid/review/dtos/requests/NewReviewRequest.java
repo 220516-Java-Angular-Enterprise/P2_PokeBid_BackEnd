@@ -2,15 +2,17 @@ package com.revature.pokebid.review.dtos.requests;
 
 public class NewReviewRequest {
     private String listingId;
+    private int rating;
     private String review;
-    private String reivewerId;
+    private String reviewerId;
 
 
     //region Constructors
-    public NewReviewRequest(String listingId, String review, String reivewerId) {
+    public NewReviewRequest(String listingId, int rating, String review, String reviewerId) {
         this.listingId = listingId;
+        this.rating = rating;
         this.review = review;
-        this.reivewerId = reivewerId;
+        this.reviewerId = reviewerId;
     }
 
     public NewReviewRequest(){
@@ -35,12 +37,21 @@ public class NewReviewRequest {
         this.review = review;
     }
 
-    public String getReivewerId() {
-        return reivewerId;
+    public int getRating() {
+        return rating;
     }
 
-    public void setReivewerId(String reivewerId) {
-        this.reivewerId = reivewerId;
+    public void setRating(int rating) {
+        this.rating = rating;
     }
+
+    public String getReviewerId() {
+        return reviewerId;
+    }
+
+    public void setReviewerId(String reviewerId) {
+        this.reviewerId = reviewerId;
+    }
+
     //endRegion
 }

@@ -13,8 +13,7 @@ import javax.persistence.Table;
 public class Condition {
     @Id
     private String condition_id;
-
-    @Column(name = "condition")
+    @Column(name = "condition", nullable = false)
     private String condition;
 
     @Inject
@@ -24,6 +23,7 @@ public class Condition {
         this.condition = condition;
     }
 
+    public Condition() { }
     public String getCondition_id() {
         return condition_id;
     }

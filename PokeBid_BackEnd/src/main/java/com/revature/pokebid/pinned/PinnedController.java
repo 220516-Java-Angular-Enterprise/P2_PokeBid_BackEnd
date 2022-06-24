@@ -1,13 +1,14 @@
-package com.revature.pokebid.history;
+package com.revature.pokebid.pinned;
 
-import com.revature.pokebid.history.dtos.requests.NewHistoryRequest;
-import com.revature.pokebid.pinned.Pinned;
+import com.revature.pokebid.history.History;
 import com.revature.pokebid.pinned.dtos.requests.AddPinnedRequest;
 import com.revature.pokebid.review.Review;
+import com.revature.pokebid.review.ReviewService;
+import com.revature.pokebid.review.dtos.requests.NewReviewRequest;
+import com.revature.pokebid.review.dtos.requests.UpdateReviewRequest;
 import com.revature.pokebid.util.annotations.Inject;
 import com.revature.pokebid.util.cutom_exceptions.InvalidRequestException;
 import com.revature.pokebid.util.cutom_exceptions.ResourceConflictException;
-import org.hibernate.usertype.UserCollectionType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -20,41 +21,43 @@ import java.util.Map;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/history")
-public class HistoryController {
+@RequestMapping("/pinned")
+public class PinnedController {
     @Inject
-    private final HistoryService historyService;
+    private final PinnedService pinnedService;
 
     @Inject
     @Autowired
-    public HistoryController(HistoryService historyService) {
-        this.historyService = historyService;
-    }
-    @CrossOrigin
-    @GetMapping(value = "/users/{user_id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public @ResponseBody List<History> getAllHistoryByUserId(@PathVariable String user_id) {
-        return historyService.getAllHistoryByUserId(user_id);
-    }
-    @CrossOrigin
-    @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public @ResponseBody Optional<History> getByHistoryId(@PathVariable String id) {
-        return historyService.getByHistoryId(id);
-    }
-    @ResponseStatus(HttpStatus.CREATED)
-    @PostMapping(consumes = "application/json", produces = MediaType.APPLICATION_JSON_VALUE)
-    public @ResponseBody History addHistory(@RequestBody NewHistoryRequest request){
-        return historyService.addHistory(request);
-    }
-    @GetMapping
-    public @ResponseBody List<History> getAllHistories() {
-        return historyService.getAllHistory();
+    public PinnedController(PinnedService pinnedService){
+        this.pinnedService = pinnedService;
     }
 
     @CrossOrigin
-    @GetMapping(value = "/userSearch/{user_id}/{status_id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public @ResponseBody List<History> getAllByUserAndStatus(@PathVariable String user_id, @PathVariable String status_id) {
-        return historyService.findAllByUserAndStatus(user_id, status_id);
+    @GetMapping(value = "/pinnedCards/{user_id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public @ResponseBody List<Pinned> getAllPinnedByUserId(@PathVariable String user_id) {
+        return pinnedService.getAllPinnedByUserId(user_id);
     }
+
+    @CrossOrigin
+    @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public @ResponseBody Optional<Pinned> getByPinnedId(@PathVariable String id) {
+        return pinnedService.getByPinnedId(id);
+    }
+
+    @ResponseStatus(HttpStatus.CREATED)
+    @PostMapping(consumes = "application/json", produces = MediaType.APPLICATION_JSON_VALUE)
+    public @ResponseBody Pinned addPinned(@RequestBody AddPinnedRequest request){
+        return pinnedService.addPinned(request);
+    }
+
+    @ResponseStatus(HttpStatus.GONE)
+    @RequestMapping("/removePinned")
+    @DeleteMapping
+    public @ResponseBody String deletePinned(@RequestBody String id){
+        pinnedService.deletePinned(id);
+        return id;
+    }
+
 
     @ExceptionHandler
     @ResponseStatus(HttpStatus.CONFLICT)
@@ -75,4 +78,5 @@ public class HistoryController {
         responseBody.put("timestamp", LocalDateTime.now().toString());
         return responseBody;
     }
+
 }

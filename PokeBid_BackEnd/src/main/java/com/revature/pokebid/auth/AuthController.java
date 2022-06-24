@@ -4,12 +4,11 @@ import com.revature.pokebid.auth.dtos.requests.LoginRequest;
 import com.revature.pokebid.auth.dtos.responses.Principal;
 import com.revature.pokebid.user.UserService;
 import com.revature.pokebid.util.annotations.Inject;
+import com.revature.pokebid.util.cutom_exceptions.InvalidRequestException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
 
@@ -27,12 +26,15 @@ public class AuthController {
         this.tokenService = tokenService;
     }
 
+    @ResponseStatus(HttpStatus.ACCEPTED)
     @PostMapping(consumes = "application/json", produces = MediaType.APPLICATION_JSON_VALUE)
-    public @ResponseBody Principal login(LoginRequest request, HttpServletResponse resp) {
+    public @ResponseBody Principal login(@RequestBody LoginRequest request, HttpServletResponse resp) {
+        if(request.getUsername() == null){
+            throw new InvalidRequestException("Empty username entered.");
+        }
         Principal principal = new Principal(userService.login(request));
         String token = tokenService.generateToken(principal);
         resp.setHeader("Authorization", token);
         return principal;
     }
-
 }

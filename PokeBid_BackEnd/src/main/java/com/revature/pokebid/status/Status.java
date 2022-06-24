@@ -1,5 +1,6 @@
 package com.revature.pokebid.status;
 
+import com.revature.pokebid.util.annotations.Inject;
 import org.hibernate.service.spi.InjectService;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -10,15 +11,17 @@ import javax.persistence.*;
 public class Status {
     @Id
     private String status_id;
-    @Column(name = "status")
+    @Column(name = "status", nullable = false)
     private String status;
 
-    public Status(){}
+    @Inject
+    @Autowired
     public Status(String status_id, String status) {
         this.status_id = status_id;
         this.status = status;
     }
 
+    public Status(){}
 
     public String getStatus_id() {
         return status_id;

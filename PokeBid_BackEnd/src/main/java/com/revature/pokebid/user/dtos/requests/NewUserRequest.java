@@ -24,6 +24,11 @@ public class NewUserRequest {
         this.email = email;
     }
 
+    public NewUserRequest(String email, String password) {
+        this.email = email;
+        this.password = password;
+    }
+
 //endregion
 
     //region <Accessors and Mutators>
