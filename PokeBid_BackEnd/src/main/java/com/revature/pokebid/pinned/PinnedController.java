@@ -44,12 +44,14 @@ public class PinnedController {
         return pinnedService.getByPinnedId(id);
     }
 
+    @CrossOrigin
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping(consumes = "application/json", produces = MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody Pinned addPinned(@RequestBody AddPinnedRequest request){
         return pinnedService.addPinned(request);
     }
 
+    @CrossOrigin
     @ResponseStatus(HttpStatus.GONE)
     @RequestMapping("/removePinned")
     @DeleteMapping
@@ -58,7 +60,7 @@ public class PinnedController {
         return id;
     }
 
-
+    @CrossOrigin
     @ExceptionHandler
     @ResponseStatus(HttpStatus.CONFLICT)
     public @ResponseBody Map<String, Object> handleResourceConflictException(ResourceConflictException e) {
@@ -69,6 +71,7 @@ public class PinnedController {
         return responseBody;
     }
 
+    @CrossOrigin
     @ExceptionHandler
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public @ResponseBody Map<String, Object> handleBadRequestException(InvalidRequestException e) {

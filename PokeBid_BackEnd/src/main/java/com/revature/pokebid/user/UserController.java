@@ -32,6 +32,7 @@ public class UserController {
     @Autowired
     public UserController(UserService userService){ this.userService = userService; }
 
+    @CrossOrigin
     @GetMapping
     public @ResponseBody List<User> getAllUsers(){ return userService.getAllUsers(); }
 
@@ -45,6 +46,7 @@ public class UserController {
     @GetMapping(value = "/get-by-email/{email}", produces = MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody Optional<User> getUserByEmail(@PathVariable String email) { return userService.getUserByEmail(email); }
 
+    @CrossOrigin
     @RequestMapping("/register")
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping(consumes = "application/json", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -52,6 +54,7 @@ public class UserController {
         return userService.register(request).getId();
     }
 
+    @CrossOrigin
     @ResponseStatus(HttpStatus.ACCEPTED)
     @PutMapping(value = "/changePassword", consumes = "application/json", produces = MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody String changePassword(@RequestBody ChangePasswordRequest request){
@@ -59,6 +62,7 @@ public class UserController {
          return request.getPassword();
     }
 
+    @CrossOrigin
     @ResponseStatus(HttpStatus.ACCEPTED)
     @PutMapping(value = "/changeEmail", consumes = "application/json", produces = MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody String changeEmail(@RequestBody ChangeEmailRequest request){
@@ -66,6 +70,7 @@ public class UserController {
         return request.getEmail();
     }
 
+    @CrossOrigin
     @RequestMapping("/changeAddress")
     @ResponseStatus(HttpStatus.ACCEPTED)
     @PutMapping(consumes = "application/json", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -74,6 +79,7 @@ public class UserController {
         return request.getAddress();
     }
 
+    @CrossOrigin
     @ExceptionHandler
         @ResponseStatus(HttpStatus.CONFLICT)
         public @ResponseBody Map<String, Object> handleResourceConflictException(ResourceConflictException e){
@@ -86,6 +92,7 @@ public class UserController {
         return responseBody;
     }
 
+    @CrossOrigin
     @ExceptionHandler
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public @ResponseBody Map<String, Object> handleBadRequestException(InvalidRequestException e){

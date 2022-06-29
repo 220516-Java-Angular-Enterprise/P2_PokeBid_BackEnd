@@ -30,12 +30,14 @@ public class ReviewController {
         this.reviewService = reviewService;
     }
 
+    @CrossOrigin
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping(consumes = "application/json", produces = MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody Review createReview(@RequestBody NewReviewRequest request){
         return reviewService.createReview(request);
     }
 
+    @CrossOrigin
     @GetMapping
     public @ResponseBody List<Review> getAllReviews() {
         return reviewService.getAllReviews();
@@ -57,6 +59,7 @@ public class ReviewController {
         return reviewService.getByReviewId(id);
     }
 
+    @CrossOrigin
     @ResponseStatus(HttpStatus.ACCEPTED)
     @RequestMapping("/updateReview")
     @PutMapping
@@ -64,6 +67,7 @@ public class ReviewController {
         return reviewService.updateReview(request);
     }
 
+    @CrossOrigin
     @ResponseStatus(HttpStatus.GONE)
     @DeleteMapping(value = "/deleteReview/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody String deleteReview(@PathVariable String id){
@@ -71,6 +75,7 @@ public class ReviewController {
         return id;
     }
 
+    @CrossOrigin
     @ExceptionHandler
     @ResponseStatus(HttpStatus.CONFLICT)
     public @ResponseBody Map<String, Object> handleResourceConflictException(ResourceConflictException e){
@@ -81,6 +86,7 @@ public class ReviewController {
         return responseBody;
     }
 
+    @CrossOrigin
     @ExceptionHandler
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public @ResponseBody Map<String, Object> handleBadRequestException(InvalidRequestException e){
