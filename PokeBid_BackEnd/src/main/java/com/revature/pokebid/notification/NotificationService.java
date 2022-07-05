@@ -42,4 +42,7 @@ public class NotificationService {
     }
 
     public List<Notification> getAllNotificationsByUser(String id) { return notificationRepository.getAllNotificationsByUser(id); }
+
+    public void deleteNotification(String id) { notificationRepository.deleteNotification(id); }
+
 }

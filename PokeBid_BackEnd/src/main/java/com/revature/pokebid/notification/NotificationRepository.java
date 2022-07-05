@@ -17,4 +17,8 @@ public interface NotificationRepository extends CrudRepository<Notification, Str
 
     @Query (value= "SELECT * FROM notifications WHERE user_id = ?1", nativeQuery = true)
     List<Notification> getAllNotificationsByUser(String user_id);
+
+    @Modifying
+    @Query(value = "DELETE FROM notifications WHERE id = ?1", nativeQuery = true)
+    void deleteNotification(String id);
 }

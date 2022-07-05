@@ -36,4 +36,12 @@ public class NotificationController {
         return notificationService.newNotification(request).getId();
     }
 
+    @CrossOrigin
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @DeleteMapping(value = "/delete/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public @ResponseBody String deleteNotification(@PathVariable String id){
+        notificationService.deleteNotification(id);
+        return id;
+    }
+
 }

@@ -6,6 +6,8 @@ import com.revature.pokebid.cardlisting.dtos.cardlisting.NewCardListingRequest;
 import com.revature.pokebid.cardlisting.dtos.cardlisting.UpdateBidderRequest;
 import com.revature.pokebid.cardlisting.dtos.cardlisting.UpdateStatusRequest;
 import com.revature.pokebid.condition.ConditionService;
+import com.revature.pokebid.history.HistoryService;
+import com.revature.pokebid.history.dtos.requests.NewHistoryRequest;
 import com.revature.pokebid.notification.Notification;
 import com.revature.pokebid.notification.NotificationService;
 import com.revature.pokebid.notification.dtos.NewNotificationRequest;
@@ -30,16 +32,19 @@ public class CardListingService {
     private final ConditionService conditionService;
     private final StatusService statusService;
     private final NotificationService notificationService;
+    private final HistoryService historyService;
 
     @Inject
     @Autowired
-    public CardListingService(CardListingRepository cardListingRepository, UserService userService, ConditionService conditionService, StatusService statusService, NotificationService notificationService) {
+    public CardListingService(CardListingRepository cardListingRepository, UserService userService, ConditionService conditionService, StatusService statusService, NotificationService notificationService, HistoryService historyService) {
         this.cardListingRepository = cardListingRepository;
         this.userService = userService;
         this.conditionService = conditionService;
         this.statusService = statusService;
         this.notificationService = notificationService;
+        this.historyService = historyService;
     }
+
 
     public CardListing register(NewCardListingRequest request){
         CardListing cardListing = new CardListing();
@@ -50,12 +55,14 @@ public class CardListingService {
         cardListing.setCondition(conditionService.getConditionById(request.getCondition_id()));
         cardListing.setStatus(statusService.getStatusById(request.getStatus_id()));
         cardListing.setCard_description(request.getDescription());
-        cardListing.setBuy_out_price(100);//);
+        cardListing.setBuy_out_price(request.getBuy_out_price());//);
 
-        int expiration = 7 * 24 * 60 * 60 * 1000; //One week.
-        long now = System.currentTimeMillis();
-        Date date = new Date(now + expiration);
-        cardListing.setTime_end(new Timestamp(date.getTime()));
+        //int expiration = 7 * 24 * 60 * 60 * 1000; //One week.
+        //long now = System.currentTimeMillis();
+        //Date date = new Date(now + expiration);
+        //cardListing.setTime_end(new Timestamp(date.getTime()));
+
+        cardListing.setTime_end(new Timestamp(request.getEndTime().getTime() + (1000 * 60 * 60 * 24)));
 
         cardListingRepository.saveCardListing(cardListing.getId(), cardListing.getLister(), cardListing.getCard_id(), cardListing.getAuction_bidder(), cardListing.getAuction_bid(), cardListing.getStatus(), cardListing.getCondition(), cardListing.getCard_description(), cardListing.getTime_end(), cardListing.getBuy_out_price());
         return cardListing;
@@ -94,6 +101,11 @@ public class CardListingService {
                                 "Auction Bid has ended. No one made any bids on your card.");
                 notificationService.newNotification(notificationRequest);
 
+                NewHistoryRequest newHistoryRequest = new NewHistoryRequest();
+                newHistoryRequest.setUser_id(c.getUser().getId());
+                newHistoryRequest.setListing_id(c.getId());
+                newHistoryRequest.setStatus_id("d417953f-bad9-4ad6-85a4-4ff0396ce980");
+                historyService.addHistory(newHistoryRequest);
                 cardListingRepository.updateCardListingStatus(statusService.getStatusById("d417953f-bad9-4ad6-85a4-4ff0396ce980"), c.getId());
             } else if  (now.after(c.getTime_end()) && c.getAuction_bidder() != null){
                 // Send Notification to Both Lister and Bidder
@@ -101,7 +113,15 @@ public class CardListingService {
                         c.getUser().getId(),
                         c.getId(),
                         "Auction Bid has ended. Someone has purchased your auction for: " + c.getAuction_bid());
+
                 notificationService.newNotification(notificationRequestLister);
+
+                NewHistoryRequest newHistoryRequest = new NewHistoryRequest();
+                newHistoryRequest.setUser_id(c.getUser().getId());
+                newHistoryRequest.setListing_id(c.getId());
+                newHistoryRequest.setStatus_id("0ac1b2da-a838-4b68-84cf-28b68a9f3beb");
+                historyService.addHistory(newHistoryRequest);
+
                 NewNotificationRequest notificationRequestBidder = new NewNotificationRequest(
                         c.getAuction_bidder().getId(),
                         c.getId(),
@@ -109,6 +129,12 @@ public class CardListingService {
                 notificationService.newNotification(notificationRequestBidder);
 
                 cardListingRepository.updateCardListingStatus(statusService.getStatusById("1c8439b2-85a6-4ab5-b77e-b8a2bf2998ff"), c.getId());
+
+                NewHistoryRequest newHistoryRequest2 = new NewHistoryRequest();
+                newHistoryRequest2.setUser_id(c.getLister().getId());
+                newHistoryRequest2.setListing_id(c.getId());
+                newHistoryRequest2.setStatus_id("1c8439b2-85a6-4ab5-b77e-b8a2bf2998ff");
+                historyService.addHistory(newHistoryRequest2);
             }
             else {
                 // Card Listing Active

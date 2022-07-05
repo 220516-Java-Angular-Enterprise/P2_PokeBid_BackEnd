@@ -52,10 +52,9 @@ public class PinnedController {
     }
 
     @CrossOrigin
-    @ResponseStatus(HttpStatus.GONE)
-    @RequestMapping("/removePinned")
-    @DeleteMapping
-    public @ResponseBody String deletePinned(@RequestBody String id){
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @DeleteMapping(value="/delete/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public @ResponseBody String deletePinned(@PathVariable String id){
         pinnedService.deletePinned(id);
         return id;
     }
