@@ -12,8 +12,8 @@ import java.util.List;
 
 public interface CardListingRepository extends CrudRepository<CardListing, String> {
     @Modifying
-    @Query(value = "INSERT INTO card_listings (id, user_id, card_id, auction_bidder, auction_bid, status, condition, card_description, time_end) VALUES (?1, ?2, ?3, ?4, ?5, ?6, ?7, ?8, ?9)", nativeQuery = true)
-    void saveCardListing(String id, User lister_id, String card_id, User auction_bidder, int auction_bid, Status status_id, Condition condition_id, String card_description, Timestamp time_end);
+    @Query(value = "INSERT INTO card_listings (id, user_id, card_id, auction_bidder, auction_bid, status, condition, card_description, time_end, buy_out_price) VALUES (?1, ?2, ?3, ?4, ?5, ?6, ?7, ?8, ?9, ?10)", nativeQuery = true)
+    void saveCardListing(String id, User lister_id, String card_id, User auction_bidder, int auction_bid, Status status_id, Condition condition_id, String card_description, Timestamp time_end, int buy_out_price);
 
     @Query (value = "SELECT card_id FROM card_listings", nativeQuery = true)
     List<String> getAllCardIDFromCardListings();

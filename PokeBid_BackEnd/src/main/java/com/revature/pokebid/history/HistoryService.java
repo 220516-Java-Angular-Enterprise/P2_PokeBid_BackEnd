@@ -1,5 +1,6 @@
 package com.revature.pokebid.history;
 
+import com.revature.pokebid.cardlisting.CardListingRepository;
 import com.revature.pokebid.cardlisting.CardListingService;
 import com.revature.pokebid.history.dtos.requests.NewHistoryRequest;
 import com.revature.pokebid.pinned.Pinned;
@@ -25,14 +26,14 @@ public class HistoryService {
 
     @Inject
     private final HistoryRepository historyRepository;
-    private final CardListingService cardListingService;
+    private final CardListingRepository cardListingService;
     private final StatusService statusService;
     private final UserService userService;
 
 
     @Inject
     @Autowired
-    public HistoryService(HistoryRepository historyRepository, CardListingService cardListingService, StatusService statusService, UserService userService) {
+    public HistoryService(HistoryRepository historyRepository, CardListingRepository cardListingService, StatusService statusService, UserService userService) {
         this.historyRepository = historyRepository;
         this.cardListingService = cardListingService;
         this.statusService = statusService;

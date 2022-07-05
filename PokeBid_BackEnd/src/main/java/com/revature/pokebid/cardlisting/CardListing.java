@@ -41,8 +41,11 @@ public class CardListing {
     @Column(name = "time_end", nullable = false)
     private Timestamp time_end;
 
+    @Column(name = "buy_out_price")
+    private int buy_out_price;
 
-    public CardListing(String id, User user, User auction_bidder, String card_id, int auction_bid, Status status, Condition condition, String card_description, Timestamp time_end) {
+
+    public CardListing(String id, User user, User auction_bidder, String card_id, int auction_bid, Status status, Condition condition, String card_description, Timestamp time_end, int buy_out_price) {
         this.id = id;
         this.user = user;
         this.auction_bidder = auction_bidder;
@@ -52,15 +55,17 @@ public class CardListing {
         this.condition = condition;
         this.card_description = card_description;
         this.time_end = time_end;
+        this.buy_out_price = buy_out_price;
     }
 
-    public CardListing(String id, User user, String card_id, Status status, Condition condition, Timestamp time_end) {
+    public CardListing(String id, User user, String card_id, Status status, Condition condition, Timestamp time_end, int buy_out_price) {
         this.id = id;
         this.user = user;
         this.card_id = card_id;
         this.status = status;
         this.condition = condition;
         this.time_end = time_end;
+        this.buy_out_price = buy_out_price;
     }
 
     public CardListing() { }
@@ -137,6 +142,22 @@ public class CardListing {
 
     public void setTime_end(Timestamp time_end) {
         this.time_end = time_end;
+    }
+
+    public int getBuy_out_price() {
+        return buy_out_price;
+    }
+
+    public void setBuy_out_price(int buy_out_price) {
+        this.buy_out_price = buy_out_price;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     //</editor-fold desc="Get/Set">

@@ -29,6 +29,7 @@ public class CardListingController {
     public CardListingController(CardListingService cardListingService){
         this.cardListingService = cardListingService;
     }
+    @CrossOrigin
     @GetMapping
     public @ResponseBody List<CardListing> getAllCardListings() {
         return cardListingService.getAllCardListings();
@@ -55,30 +56,39 @@ public class CardListingController {
     //@CrossOrigin
     //@GetMapping(value = "/cardName/{card_name}", produces = MediaType.APPLICATION_JSON_VALUE)
     //public @ResponseBody List<CardListing> getAllCardListingsByCardName(@PathVariable String cardName) { return cardListingService.getAllCardListingsByCardName(cardName); }
-
+    @CrossOrigin
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping(consumes = "application/json", produces = MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody String registerListing(@RequestBody NewCardListingRequest request){
         return cardListingService.register(request).getId();
     }
+    @CrossOrigin
     @ResponseStatus(HttpStatus.ACCEPTED)
     @PutMapping(value = "/updateBidder", consumes = "application/json", produces = MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody CardListing updateBidder(@RequestBody UpdateBidderRequest request) {
         return cardListingService.updateBidder(request);
     }
+    @CrossOrigin
     @ResponseStatus(HttpStatus.ACCEPTED)
     @PutMapping(value = "/updateStatus", consumes = "application/json", produces = MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody CardListing updateStatus(@RequestBody UpdateStatusRequest request) {
         return cardListingService.updateStatus(request);
     }
 
+    @CrossOrigin
+    @GetMapping(value = "/updateStatusTime", produces = MediaType.APPLICATION_JSON_VALUE)
+    public @ResponseBody List<CardListing> updateStatusTime() {
+        return cardListingService.updateStatusTime();
+    }
+
+    @CrossOrigin
     @ResponseStatus(HttpStatus.GONE)
     @DeleteMapping(value = "/deleteListing/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody String deleteReview(@PathVariable String id){
         cardListingService.deleteCardListings(id);
         return id;
     }
-
+    @CrossOrigin
      @ExceptionHandler
      @ResponseStatus(HttpStatus.CONFLICT)
      public @ResponseBody Map<String, Object> handleResourceConflictException(ResourceConflictException e){
@@ -89,6 +99,7 @@ public class CardListingController {
          return responseBody;
      }
 
+     @CrossOrigin
      @ExceptionHandler
      @ResponseStatus(HttpStatus.BAD_REQUEST)
      public @ResponseBody Map<String, Object> handleBadRequestException(InvalidRequestException e){

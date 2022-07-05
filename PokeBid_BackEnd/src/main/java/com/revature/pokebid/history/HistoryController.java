@@ -40,11 +40,15 @@ public class HistoryController {
     public @ResponseBody Optional<History> getByHistoryId(@PathVariable String id) {
         return historyService.getByHistoryId(id);
     }
+
+    @CrossOrigin
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping(consumes = "application/json", produces = MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody History addHistory(@RequestBody NewHistoryRequest request){
         return historyService.addHistory(request);
     }
+
+    @CrossOrigin
     @GetMapping
     public @ResponseBody List<History> getAllHistories() {
         return historyService.getAllHistory();
@@ -56,6 +60,7 @@ public class HistoryController {
         return historyService.findAllByUserAndStatus(user_id, status_id);
     }
 
+    @CrossOrigin
     @ExceptionHandler
     @ResponseStatus(HttpStatus.CONFLICT)
     public @ResponseBody Map<String, Object> handleResourceConflictException(ResourceConflictException e) {
@@ -66,6 +71,7 @@ public class HistoryController {
         return responseBody;
     }
 
+    @CrossOrigin
     @ExceptionHandler
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public @ResponseBody Map<String, Object> handleBadRequestException(InvalidRequestException e) {

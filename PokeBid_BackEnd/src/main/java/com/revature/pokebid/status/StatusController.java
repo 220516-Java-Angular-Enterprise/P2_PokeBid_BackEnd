@@ -24,6 +24,7 @@ public class StatusController {
     @Autowired
     public StatusController(StatusService statusService) { this.statusService = statusService; }
 
+    @CrossOrigin
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping(consumes = "application/json", produces = MediaType.APPLICATION_JSON_VALUE)
     @RequestMapping("/addStatus")

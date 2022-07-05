@@ -20,6 +20,8 @@ public class NewCardListingRequest {
     String description;
     Timestamp endTime;
 
+    int buy_out_price;
+
     public NewCardListingRequest(){}
 
     public NewCardListingRequest(String lister_id, String card_id, int auction_bid, String condition_id, String status_id, String description, Timestamp endTime){
@@ -30,6 +32,17 @@ public class NewCardListingRequest {
         this.status_id = status_id;
         this.description = description;
         this.endTime = endTime;
+    }
+
+    public NewCardListingRequest(String lister_id, String card_id, int auction_bid, String condition_id, String status_id, String description, Timestamp endTime, int buy_out_price) {
+        this.lister_id = lister_id;
+        this.card_id = card_id;
+        this.auction_bid = auction_bid;
+        this.condition_id = condition_id;
+        this.status_id = status_id;
+        this.description = description;
+        this.endTime = endTime;
+        this.buy_out_price = buy_out_price;
     }
 
     public String getLister_id() {
@@ -72,4 +85,16 @@ public class NewCardListingRequest {
     public String getCard_id() { return card_id; }
 
     public void setCard_id(String card_id) { this.card_id = card_id; }
+
+    public void setLister_id(String lister_id) {
+        this.lister_id = lister_id;
+    }
+
+    public int getBuy_out_price() {
+        return buy_out_price;
+    }
+
+    public void setBuy_out_price(int buy_out_price) {
+        this.buy_out_price = buy_out_price;
+    }
 }

@@ -22,6 +22,7 @@ public class ConditionController {
     @Autowired
     public ConditionController(ConditionService conditionService) { this.conditionService = conditionService; }
 
+    @CrossOrigin
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping(consumes = "application/json", produces = MediaType.APPLICATION_JSON_VALUE)
     @RequestMapping("/addCondition")
